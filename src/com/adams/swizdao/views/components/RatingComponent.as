@@ -148,6 +148,7 @@ package com.adams.swizdao.views.components
 		protected function init():void {
 			//Set up the default converter function to get label text from rating
 			ratingToLabel = this.defaultRatingToLabel;
+			labelToRating = this.defaultLabelToRating;
 			this.useHandCursor = true;
 			this.buttonMode = true;
 		}
@@ -209,7 +210,25 @@ package com.adams.swizdao.views.components
 		{
 			_ratingToLabel = v;
 		}
+		//Rating to Label Function
+		private var _labelToRating:Function;
 		
+		/**
+		 * Takes a function that gets an String for the label from the
+		 * rating. The default is a Function that takes the rating and appends a %
+		 * to it. 
+		 * @return 
+		 * 
+		 */
+		public function get labelToRating():Function
+		{
+			return _labelToRating;
+		}
+		
+		public function set labelToRating(v:Function):void
+		{
+			_labelToRating = v;
+		}
 		
 		//----------------------------------
 		//  rating
@@ -221,6 +240,8 @@ package com.adams.swizdao.views.components
 		//Indicates if rating has changed
 		private var _bRatingChanged:Boolean;
 		
+		//Indicates if rating has changed
+		private var _bValueChanged:Boolean;
 		
 		/**
 		 * The rating of the component (0..100) 
@@ -237,6 +258,28 @@ package com.adams.swizdao.views.components
 			if (_rating != v) {
 				_rating = v;
 				_bRatingChanged = true;
+				invalidateProperties();
+			}
+		}
+		
+		//The current vpoints 
+		private var _vpoints:int;
+		 
+		/**
+		 * The vpoints of the component (0..100) 
+		 * @return the vpoints
+		 * 
+		 */
+		public function get vpoints():int
+		{
+			return _vpoints;
+		}
+		
+		public function set vpoints(v:int):void
+		{
+			if (_vpoints != v) {
+				_vpoints = v;
+				_bValueChanged = true;
 				invalidateProperties();
 			}
 		}
@@ -339,6 +382,12 @@ package com.adams.swizdao.views.components
 				updateLabel();
 				_bRatingChanged = false;
 			}
+			if (_bValueChanged) {
+				updateLabelPoints();
+				updateMasks();
+				_bValueChanged = false;
+			}
+			
 		}  
 		
 		//--------------------------------------------------------------------------
@@ -395,6 +444,13 @@ package com.adams.swizdao.views.components
 				labelText.text = label;
 			}
 		}
+		private function updateLabelPoints():void {
+			if (labelText) {
+				var label:String = vpoints.toString();
+				rating = labelToRating(vpoints)
+				labelText.text = label;
+			}
+		}
 		public static const fibArr:Array = [0,0.5,1,2,3,5,8,13,20,40,100];
 		/**
 		 * The default conversion function to turn the rating into the label
@@ -403,12 +459,17 @@ package com.adams.swizdao.views.components
 		 * @param v the value
 		 * @return the String Format of the value
 		 * 
-		 */
+		 */		
 		private function defaultRatingToLabel(v:Number):String {
 			tenScale = Math.ceil(v/10)%10;
 			if(v>90) tenScale=10;
 			return 'Points '+fibArr[tenScale];
 		}
+		
+		private function defaultLabelToRating(v:int):Number {
+			return fibArr.indexOf(v)*10;
+		}
+		
 		public var tenScale:int;
 		
 		/**

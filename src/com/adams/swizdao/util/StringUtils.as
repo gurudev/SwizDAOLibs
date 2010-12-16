@@ -37,5 +37,14 @@ package com.adams.swizdao.util
 			v = v.replace( nTrimExp,'_');
 			return (trimSpace(v)); 
 		}
+		private static function escapePattern(p_pattern:String):String { 
+			return p_pattern.replace(/(\]|\[|\{|\}|\(|\)|\*|\+|\?|\.|\\)/g, '\\$1');
+		}
+		public static function replace(p_string:String, p_remove:String,p_replace:String = '', p_caseSensitive:Boolean = true):String {
+			if (p_string == null) { return ''; }
+			var rem:String = escapePattern(p_remove);
+			var flags:String = (!p_caseSensitive) ? 'ig' : 'g';
+			return p_string.replace(new RegExp(rem, flags), p_replace);
+		}
 	}
 }

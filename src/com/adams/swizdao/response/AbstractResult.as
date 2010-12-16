@@ -80,10 +80,11 @@ package com.adams.swizdao.response
 		 * the SignalSequence is invoked onSignalDone(), to proceed with next queued signals.
 		 * </p>
  		 */
-		private function resultHandler( rpcevt:ResultEvent, prevSignal:AbstractSignal = null ):void {
-			var resultObj:Object = rpcevt.result;
+		protected var resultObj:Object
+		protected function resultHandler( rpcevt:ResultEvent, prevSignal:AbstractSignal = null ):void { 
 			var currentVO:IValueObject;
-			
+			resultObj = rpcevt.result;
+
 			if( resultObj is ArrayCollection ) {
 				if( ArrayCollection( resultObj ).length != 0 ) {
 					currentVO = ArrayCollection( resultObj ).getItemAt( 0 ) as IValueObject;	
@@ -99,14 +100,7 @@ package com.adams.swizdao.response
 				if( prevSignal.currentProcessor ) {
 					processVO( prevSignal.currentProcessor, outCollection );
 				} 
-			}
-			resultSignal.dispatch( resultObj, prevSignal.currentSignal );
-			
-			// on push
-			if(prevSignal.currentSignal.action == Action.FINDPUSH_ID){  
-				pushRefreshSignal.dispatch( prevSignal.currentSignal );
-			}
-			signalSeq.onSignalDone();
+			} 
 		} 
 		
 		/** <p>
@@ -114,7 +108,7 @@ package com.adams.swizdao.response
 		 * in client side. The mappings like one-one, one-many, many-one and many-many
 		 * </p>
 		 */
-		private function processVO( process:IVOProcessor, collection:ICollection ):void {
+		protected function processVO( process:IVOProcessor, collection:ICollection ):void {
 			process.processCollection( collection.items );
 		}
 		

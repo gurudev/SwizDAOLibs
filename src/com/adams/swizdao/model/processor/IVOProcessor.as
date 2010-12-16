@@ -17,7 +17,6 @@ package com.adams.swizdao.model.processor
 {
 	import com.adams.swizdao.model.collections.ICollection;
 	import com.adams.swizdao.model.vo.IValueObject;
-	import com.adams.swizdao.model.vo.SignalVO;
 	
 	import mx.collections.IList;
 

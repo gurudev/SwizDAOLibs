@@ -36,7 +36,7 @@ package com.adams.swizdao.model.vo
 		private var _SmtpfrmLbl:String
 		private var _SmtpTeamEmail:String
 		private var _allReports:Boolean
-		public var statusText:String
+		private var _VersionServer:String;		
 		
 		public function get dbserver():String
 		{
@@ -221,6 +221,14 @@ package com.adams.swizdao.model.vo
 		{
 			return _password;
 		} 	
+		public function get VersionServer():String
+		{
+			return _VersionServer;
+		}
 		
+		public function set VersionServer(value:String):void
+		{
+			_VersionServer = value;
+		}
 	}
 }
