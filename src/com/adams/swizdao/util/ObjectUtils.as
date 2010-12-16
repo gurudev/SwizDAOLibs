@@ -20,6 +20,11 @@ package com.adams.swizdao.util
 	import flash.utils.ByteArray;
 	import flash.utils.describeType;
 	
+	import mx.containers.Form;
+	import mx.containers.FormItem;
+	import mx.controls.DateField;
+	import mx.controls.TextArea;
+	import mx.controls.TextInput;
 	import mx.utils.ObjectUtil;
 	
 	import org.osflash.signals.Signal;
@@ -148,11 +153,11 @@ package com.adams.swizdao.util
 			by.writeUTFBytes(str);
 			return by;
 		}
-		public static function setUpForm(obj:Object,taskForm:Form):void {
+		public static function setUpForm(obj:Object,taskForm:spark.components.Form):void {
 			for (var i: int =0; i<taskForm.numElements; i++){
-				if(taskForm.getElementAt(i) is FormItem){
-					var uiComp:Object = FormItem(taskForm.getElementAt(i)).getElementAt(0) as Object;
-					if(uiComp is spark.components.TextInput || uiComp is spark.components.TextArea ||  uiComp is Label ){
+				if(taskForm.getElementAt(i) is spark.components.FormItem){
+					var uiComp:Object = spark.components.FormItem(taskForm.getElementAt(i)).getElementAt(0) as Object;
+					if(uiComp is spark.components.TextInput || uiComp is spark.components.TextArea ||  uiComp is Label || uiComp is mx.controls.TextArea || uiComp is mx.controls.TextInput ){
 						try{
 							uiComp.text = obj[uiComp.id];
 							throw new Error("Not a Text");
@@ -160,6 +165,8 @@ package com.adams.swizdao.util
 							if(obj.hasOwnProperty([uiComp.id]))
 							if(obj[uiComp.id])uiComp.text = obj[uiComp.id].toString(); 
 						}
+					}else if(uiComp is DateField ){
+						uiComp.selectedDate = obj[uiComp.id];
 					}
 				}
 			}
