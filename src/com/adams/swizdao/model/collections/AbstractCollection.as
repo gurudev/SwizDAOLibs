@@ -250,7 +250,7 @@ package com.adams.swizdao.model.collections
 					else {
 						addItem( newList.getItemAt( i ) );
 					}	
-				}
+				} 
 			}
 		}
 		

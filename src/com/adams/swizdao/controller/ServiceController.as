@@ -67,11 +67,11 @@ package com.adams.swizdao.controller
  		 */
 		public function assignChannelSets():void
 		{ 
-			var baseChannel:AMFChannel = new AMFChannel("my-amf",serverLocation+"spring/messagebroker/amf");
+			var baseChannel:AMFChannel = new AMFChannel("my-amf",serverLocation+"messagebroker/amf");
 			//"my-polling-amf", "spring/messagebroker/amfpolling"
 			//"my-longpolling-amf", "spring/messagebroker/amflongpolling"
 			//"my-streaming-amf",serverLocation+"spring/messagebroker/streamingamf"
-			var pushChannel:AMFChannel = new AMFChannel("my-longpolling-amf",serverLocation+ "spring/messagebroker/amflongpolling");
+			var pushChannel:AMFChannel = new AMFChannel("my-longpolling-amf",serverLocation+ "messagebroker/amflongpolling");
 			pushChannel.pollingEnabled= true;
 			pushChannel.pollingInterval= 5000;
 			pushChannel.piggybackingEnabled=true;

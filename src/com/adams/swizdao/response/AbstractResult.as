@@ -93,14 +93,12 @@ package com.adams.swizdao.response
 			else {
 				currentVO = resultObj as IValueObject;
 			}
-			
-			//if( Object( currentVO ).hasOwnProperty( prevSignal.currentCollection.sortString ) || ( !currentVO ) || 
 			if(Action.PAGINGACTIONS.indexOf( prevSignal.currentSignal.action ) ==-1) {
 				var outCollection:ICollection = updateCollection( prevSignal.currentCollection, prevSignal.currentSignal, resultObj );
 				if( prevSignal.currentProcessor ) {
 					processVO( prevSignal.currentProcessor, outCollection );
 				} 
-			} 
+			}  
 		} 
 		
 		/** <p>
