@@ -28,6 +28,25 @@ package com.adams.swizdao.util
 
 	public class FormUtils
 	{
+		public static function getFormObject(taskForm:Object,target:IValueObject):IValueObject
+		{
+			var formArr:Array=[];
+			for (var i: int =0; i<taskForm.numElements; i++){
+				if(taskForm.getElementAt(i) is spark.components.FormItem){
+					var uiComp:Object = FormItem(taskForm.getElementAt(i)).getElementAt(0) as Object;
+					if(uiComp is spark.components.TextInput || uiComp is spark.components.TextArea ||  uiComp is Label ){
+						formArr[uiComp.id]=uiComp;
+					}
+				}
+			}
+			var propArr : Array = getPropNames(target);
+			for each(var str:String in propArr){
+				if(formArr[str] is spark.components.TextInput){
+					target[str] = formArr[str].text;
+				}
+			}
+			return target;
+		}
 		//To retrieve form values into target Object
 		public static function getCastObject(taskForm:Object,target:IValueObject):IValueObject
 		{
@@ -36,11 +55,11 @@ package com.adams.swizdao.util
 				try{
 					if(taskForm[str] is TextInput){
 						target[str] = taskForm[str].text;
-					}else if(taskForm[str] is DropDownList){ 
+					}/*else if(taskForm[str] is DropDownList){ 
 						var selectedIndex:int = DropDownList(taskForm[str]).selectedIndex
 						var objIndex:Array = DropDownList(taskForm[str]).dataProvider.getItemAt(selectedIndex) as Array;
 						target[str] = objIndex[1];
-					}
+					}*/
 				}catch(er:Error){
 
 				}
@@ -82,24 +101,26 @@ package com.adams.swizdao.util
 							if(obj.hasOwnProperty([uiComp.id]))
 								if(obj[uiComp.id])uiComp.text = obj[uiComp.id].toString();
 						}
-					}if(uiComp is DropDownList){
+					}/*if(uiComp is DropDownList){
 						try{
-							var indexValue:int = obj[uiComp.id] as int;
-							var selectedObj:Array;
-							for(var j:int =0; j<DropDownList(uiComp).dataProvider.length; j++){
-								var objIndex:Array = DropDownList(uiComp).dataProvider.getItemAt(j) as Array;
-								if(objIndex[1] == indexValue){
-									selectedObj = objIndex;
-									break;
-								}
-							}	
-							DropDownList(uiComp).selectedItem = selectedObj;
+							if(obj[uiComp.id] is int){
+								var indexValue:int = obj[uiComp.id] as int;
+								var selectedObj:Array;
+								for(var j:int =0; j<DropDownList(uiComp).dataProvider.length; j++){
+									var objIndex:Array = DropDownList(uiComp).dataProvider.getItemAt(j) as Array;
+									if(objIndex[1] == indexValue){
+										selectedObj = objIndex;
+										break;
+									}
+								}	
+								DropDownList(uiComp).selectedItem = selectedObj;
+							} 
 						}catch(er:Error){
 							DropDownList(uiComp).selectedIndex = 0;
 						}finally{
 							DropDownList(uiComp).validateNow();
 						}
-					}
+					}*/
 				}
 			}
 		} 
