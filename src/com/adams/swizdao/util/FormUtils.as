@@ -42,8 +42,18 @@ package com.adams.swizdao.util
 			var propArr : Array = getPropNames(target);
 			for each(var str:String in propArr){
 				if(formArr[str] is spark.components.TextInput){
-					target[str] = formArr[str].text;
-				}
+					try{
+						target[str] = formArr[str].text;
+					}catch(er:Error){
+						try{
+							target[str] = new Date(formArr[str].value);
+						}catch(er:Error){
+							if(Object(target).hasOwnProperty(str))
+								target[str]= ObjectUtils.StrToByteArray(formArr[str].text);
+						}
+					} 
+					
+				} 
 			}
 			return target;
 		}
