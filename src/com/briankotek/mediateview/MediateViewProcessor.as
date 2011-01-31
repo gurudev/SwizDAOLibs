@@ -173,11 +173,10 @@ package com.briankotek.mediateview
 		{
 			var result : Class;
 			var targetClassName : String = getQualifiedClassName( view );
-			result = getDefinitionByName( targetClassName ) as Class;
-			
-			if ( !result )
-			{
-				throw new Error( "MediateViewProcessor cannot locate Class for view instance " + view.toString() + "." );
+			try{
+				result = getDefinitionByName( targetClassName ) as Class;
+			}catch(er:Error){
+				trace( "MediateViewProcessor cannot locate Class for view instance " + view.toString() + "." );
 			}
 			return result;
 		}
