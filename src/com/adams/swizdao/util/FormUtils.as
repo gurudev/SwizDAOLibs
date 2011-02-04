@@ -41,7 +41,7 @@ package com.adams.swizdao.util
 			}
 			var propArr : Array = getPropNames(target);
 			for each(var str:String in propArr){
-				if(formArr[str] is spark.components.TextInput){
+				if(formArr[str] is spark.components.TextInput || formArr[str] is spark.components.TextArea){
 					try{
 						target[str] = formArr[str].text;
 					}catch(er:Error){
@@ -52,8 +52,7 @@ package com.adams.swizdao.util
 								target[str]= ObjectUtils.StrToByteArray(formArr[str].text);
 						}
 					} 
-					
-				} 
+				}  
 			}
 			return target;
 		}

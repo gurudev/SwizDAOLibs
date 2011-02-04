@@ -43,10 +43,11 @@ package com.adams.swizdao.views.mediators
 	 * details on this.
 	 * </p>
 	 */
-	public class AbstractViewMediator extends SkinnableComponent
+	public class AbstractViewMediator extends SkinnableComponent implements IViewMediator
 	{
 		[Inject]
 		public var signalSeq:SignalSequence;
+		private var _hostSkin:Object
 		/** 
 		 * A flag indicating if the correpsonding view's creation complete has fired.
 		 */
@@ -72,8 +73,24 @@ package com.adams.swizdao.views.mediators
 		{
 			super(); 
 			this.viewType = viewType;
+			this.hostSkin = this.parent; 
 		}
 		
+		public function get hostSkin():Object
+		{
+			return _hostSkin;
+		}
+		
+		public function get viewSkin():UIComponent
+		{
+			return _view;
+		}
+		
+		public function set hostSkin(value:Object):void
+		{
+			_hostSkin = value;
+		}
+
 		/**
 		 * Listen for views added to the stage and determine if it's the corresponding 
 		 * View for this View Mediator. This check is done by looking at the view added 
