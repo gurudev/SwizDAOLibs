@@ -72,8 +72,7 @@ package com.adams.swizdao.views.mediators
 		public function AbstractViewMediator( viewType:Class )
 		{
 			super(); 
-			this.viewType = viewType;
-			this.hostSkin = this.parent; 
+			this.viewType = viewType; 
 		}
 		
 		public function get hostSkin():Object
@@ -108,7 +107,7 @@ package com.adams.swizdao.views.mediators
 			if( ( value is viewType ) && !( _view ) ) { 
 				
 				this._view = value as UIComponent;
-				
+				this._hostSkin = this.parent;
 				// determine if the view has been initialized...
 				// NO...listen for it;s creation complete event
 				if( this._view.initialized == false ) 	{
