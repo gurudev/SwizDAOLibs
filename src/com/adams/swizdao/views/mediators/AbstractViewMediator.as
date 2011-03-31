@@ -21,6 +21,7 @@ package com.adams.swizdao.views.mediators
 	import com.nsdevaraj.swiz.processors.FormProcessor;
 	
 	import flash.events.Event;
+	import flash.net.LocalConnection;
 	import flash.system.System;
 	
 	import mx.core.UIComponent;
@@ -221,6 +222,8 @@ package com.adams.swizdao.views.mediators
 			this._view.removeEventListener( Event.REMOVED_FROM_STAGE, cleanup );
 			System.gc();
 			System.gc();
+			new LocalConnection().connect('_noop');
+			new LocalConnection().connect('_noop');
 		}
 		
 		/**
