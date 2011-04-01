@@ -222,8 +222,18 @@ package com.adams.swizdao.views.mediators
 			this._view.removeEventListener( Event.REMOVED_FROM_STAGE, cleanup );
 			System.gc();
 			System.gc();
-			new LocalConnection().connect('_noop');
-			new LocalConnection().connect('_noop');
+			try
+			{
+				/**
+				 * Force garbage collection
+				 */
+				new LocalConnection().connect('_noop');
+				new LocalConnection().connect('_noop');
+			}
+			catch (e:Error)
+			{
+				// The following error is expected: Error #2082: Connect failed because the object is already connected.
+			}
 		}
 		
 		/**
