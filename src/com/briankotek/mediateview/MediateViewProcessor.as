@@ -173,13 +173,8 @@ package com.briankotek.mediateview
 		{
 			var result : Class;
 			var targetClassName : String = getQualifiedClassName( view );
-			if(targetClassName != 'ActionBarSkin.as$45::TitleDisplayComponent' || targetClassName != 'PieSeriesLegendMarker')
+			if(targetClassName != 'ActionBarSkin.as$45::TitleDisplayComponent' && targetClassName != 'PieSeriesLegendMarker')
 			result = getDefinitionByName( targetClassName ) as Class;
-
-			if ( !result )
-			{
-				throw new Error( "MediateViewProcessor cannot locate Class for view instance " + view.toString() + "." );
-			}
 			return result;
 		}
 
