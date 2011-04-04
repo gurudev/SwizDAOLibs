@@ -18,7 +18,6 @@ package com.adams.swizdao.views.mediators
 	
 	import com.adams.swizdao.model.vo.SignalVO;
 	import com.adams.swizdao.response.SignalSequence;
-	import com.nsdevaraj.swiz.processors.FormProcessor;
 	
 	import flash.events.Event;
 	import flash.net.LocalConnection;
@@ -147,7 +146,6 @@ package com.adams.swizdao.views.mediators
 		protected function init():void {
 			this.setViewListeners();
 			this.setViewDataBindings();
-			dispatchEvent( new Event( FormProcessor.FORM_READY ) );
 		}
 		
 		protected function setRenderers():void {
