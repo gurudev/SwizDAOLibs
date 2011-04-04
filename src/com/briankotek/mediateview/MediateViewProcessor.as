@@ -173,9 +173,13 @@ package com.briankotek.mediateview
 		{
 			var result : Class;
 			var targetClassName : String = getQualifiedClassName( view );
-			if(targetClassName != 'ActionBarSkin.as$45::TitleDisplayComponent' && targetClassName != 'PieSeriesLegendMarker')
-			result = getDefinitionByName( targetClassName ) as Class;
-			return result;
+			try{
+				result = getDefinitionByName( targetClassName ) as Class;
+				return result;
+			}catch(er:Error){
+				
+			}
+			return null;
 		}
 
 		/**
