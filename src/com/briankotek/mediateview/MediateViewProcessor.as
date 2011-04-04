@@ -5,26 +5,26 @@
  * The default metadata argument for MediateView is "view". You can specify the name of the view class that you are interested in.
  * In this example, when a TestPanel is added to the stage, the setView() method will be invoked, and the view will be passed as a method argument:
  *
- <code>
- [MediateView( "TestPanel" )]
- public function setView( panel : TestPanel ) : void
- {
- view = panel;
- view.testLabel.text = "Text set for type TestPanel from controller.";
- }
- </code>
+   <code>
+   [MediateView( "TestPanel" )]
+   public function setView( panel : TestPanel ) : void
+   {
+   view = panel;
+   view.testLabel.text = "Text set for type TestPanel from controller.";
+   }
+   </code>
  *
  * Another way to use MediateView is to specify a viewId. In this case, when a UIComponent with the ID "testPanel2" is added to the stage,
  * the setView2() method will be invoked, and the view will be passed as a method argument.
  *
- <code>
- [MediateView( viewId="testPanel2" )]
- public function setView2( panel : TestPanel ) : void
- {
- view2 = panel;
- view2.testLabel.text = "Text set for id 'testPanel2' from controller.";
- }
- </code>
+   <code>
+   [MediateView( viewId="testPanel2" )]
+   public function setView2( panel : TestPanel ) : void
+   {
+   view2 = panel;
+   view2.testLabel.text = "Text set for id 'testPanel2' from controller.";
+   }
+   </code>
  *
  * You may optionally set the values <code>mediateEventType</code> and <code>useCapture</code>. By default, the event type is "addedToStage", and useCapture is true.
  * 
@@ -37,21 +37,21 @@ package com.briankotek.mediateview
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.utils.*;
-	
+
 	import mx.core.UIComponent;
-	
+
 	import org.swizframework.core.Bean;
 	import org.swizframework.core.SwizConfig;
 	import org.swizframework.processors.BaseMetadataProcessor;
 	import org.swizframework.reflection.IMetadataTag;
-	
+
 	public class MediateViewProcessor extends BaseMetadataProcessor
 	{
 		protected static const MEDIATE_VIEW : String = "MediateView";
 		
 		public var mediateEventType : String = Event.ADDED_TO_STAGE;
 		public var useCapture : Boolean = true;
-		
+
 		protected var mediatorsByViewType : Dictionary = new Dictionary();
 		protected var mediatorsByViewId : Dictionary = new Dictionary();
 		
@@ -61,13 +61,13 @@ package com.briankotek.mediateview
 		{
 			super( [ MEDIATE_VIEW ], MediateViewMetadataTag );
 		}
-		
+
 		public function mediateView( event : Event ) : void
 		{
 			var target : DisplayObject = DisplayObject( event.target );
 			var viewMediator : ViewMediator;
 			var mediators : Array;
-			
+
 			if ( target is UIComponent && mediatorsByViewId[ UIComponent( target ).id ] is Array )
 			{
 				mediators = mediatorsByViewId[ UIComponent( target ).id ] as Array;
@@ -80,7 +80,7 @@ package com.briankotek.mediateview
 					mediators = mediatorsByViewType[ targetType ] as Array;
 				}
 			}
-			
+
 			if ( mediators )
 			{
 				for each ( viewMediator in mediators )
@@ -88,9 +88,9 @@ package com.briankotek.mediateview
 					viewMediator.method.apply( null, [ target ] );
 				}
 			}
-			
+
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
@@ -98,7 +98,7 @@ package com.briankotek.mediateview
 		{
 			var mediateViewTag : MediateViewMetadataTag = metadataTag as MediateViewMetadataTag;
 			var beanMethod : Function = bean.source[ mediateViewTag.host.name ];
-			
+
 			if ( mediateViewTag.view )
 			{
 				var viewClass : Class = findViewClassFromName( mediateViewTag.view );
@@ -110,7 +110,7 @@ package com.briankotek.mediateview
 				mediatorsByViewId[ mediateViewTag.viewId ] ||= [];
 				mediatorsByViewId[ mediateViewTag.viewId ].push( new ViewMediator( mediateViewTag, beanMethod ) );
 			}
-			
+
 			// Don't set up a listener on the dispatcher until we need to.
 			if ( !dispatcherListenerAdded )
 			{
@@ -119,7 +119,7 @@ package com.briankotek.mediateview
 				dispatcherListenerAdded = true;
 			}
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
@@ -128,7 +128,7 @@ package com.briankotek.mediateview
 			var mediateViewTag : MediateViewMetadataTag = metadataTag as MediateViewMetadataTag;
 			var beanMethod : Function = bean.source[ mediateViewTag.host.name ];
 			var dispatcher : IEventDispatcher = swiz.config.defaultDispatcher == SwizConfig.LOCAL_DISPATCHER ? swiz.dispatcher : swiz.globalDispatcher;
-			
+
 			// If mediating a view by type, find the matching view in the type dictionary and remove the array element using the specified method of the bean.
 			if ( mediateViewTag.view )
 			{
@@ -136,36 +136,36 @@ package com.briankotek.mediateview
 				if ( mediatorsByViewType[ viewClass ] is Array )
 				{
 					mediatorsByViewType[ viewClass ].some( function( element : *, index : int, arr : Array ) : Boolean
-					{
-						var result : Boolean = false;
-						if ( ViewMediator( element ).method == beanMethod )
 						{
-							arr.splice( index, 1 );
-							result = true;
-						}
-						return result;
-					} );
+							var result : Boolean = false;
+							if ( ViewMediator( element ).method == beanMethod )
+							{
+								arr.splice( index, 1 );
+								result = true;
+							}
+							return result;
+						} );
 				}
 			}
-				// If mediating a view by type, find the matching view in the ID dictionary and remove the array element using the specified method of the bean.
+			// If mediating a view by type, find the matching view in the ID dictionary and remove the array element using the specified method of the bean.
 			else if ( mediateViewTag.viewId )
 			{
 				if ( mediatorsByViewId[ mediateViewTag.viewId ] is Array )
 				{
 					mediatorsByViewId[ mediateViewTag.viewId ].some( function( element : *, index : int, arr : Array ) : Boolean
-					{
-						var result : Boolean = false;
-						if ( ViewMediator( element ).method == beanMethod )
 						{
-							arr.splice( index, 1 );
-							result = true;
-						}
-						return result;
-					} );
+							var result : Boolean = false;
+							if ( ViewMediator( element ).method == beanMethod )
+							{
+								arr.splice( index, 1 );
+								result = true;
+							}
+							return result;
+						} );
 				}
 			}
 		}
-		
+
 		/**
 		 * Get the Class reference for the specified object instance.
 		 */
@@ -173,21 +173,23 @@ package com.briankotek.mediateview
 		{
 			var result : Class;
 			var targetClassName : String = getQualifiedClassName( view );
-			try{
-				result = getDefinitionByName( targetClassName ) as Class;
-			}catch(er:Error){
-				trace( "MediateViewProcessor cannot locate Class for view instance " + view.toString() + "." );
+			if(targetClassName != 'ActionBarSkin.as$45::TitleDisplayComponent' || targetClassName != 'PieSeriesLegendMarker')
+			result = getDefinitionByName( targetClassName ) as Class;
+
+			if ( !result )
+			{
+				throw new Error( "MediateViewProcessor cannot locate Class for view instance " + view.toString() + "." );
 			}
 			return result;
 		}
-		
+
 		/**
 		 * Get the Class reference for the specified class name.
 		 */
 		private function findViewClassFromName( view : String ) : Class
 		{
 			var result : Class;
-			
+
 			if ( swiz.config.viewPackages.length > 0 )
 			{
 				result = findClassDefinition( view, swiz.config.viewPackages );
@@ -196,14 +198,14 @@ package com.briankotek.mediateview
 			{
 				result = getClassDefinitionByName( view ) as Class
 			}
-			
+
 			if ( !result )
 			{
 				throw new Error( "MediateViewProcessor cannot locate Class for view of type " + view + "." );
 			}
 			return result;
 		}
-		
+
 		private static function findClassDefinition( className : String, packageNames : Array ) : Class
 		{
 			var definition : Class;
@@ -217,7 +219,7 @@ package com.briankotek.mediateview
 			}
 			return definition;
 		}
-		
+
 		private static function getClassDefinitionByName( className : String ) : Class
 		{
 			var definition : Class;
@@ -231,6 +233,6 @@ package com.briankotek.mediateview
 			}
 			return definition;
 		}
-		
+
 	}
 }
