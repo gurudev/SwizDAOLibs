@@ -279,6 +279,14 @@ package com.adams.swizdao.model.collections
 			return null;
 		}
 		
+		public function findExistingPropItem( item:Object,prop:String ):Object {
+			for each( var existingItem:Object in items ) {
+				if( existingItem[ prop ] == item[ prop ] ) {
+					return existingItem;
+				}    
+			}
+			return null;
+		}
 		public function findItem( itemId:int ):Boolean {
 			for each( var existingItem:Object in items ) {
 				if( existingItem[ sortString ] == itemId ) {

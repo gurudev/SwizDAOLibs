@@ -106,7 +106,7 @@ package com.adams.swizdao.response
 		 * in client side. The mappings like one-one, one-many, many-one and many-many
 		 * </p>
 		 */
-		protected function processVO( process:IVOProcessor, collection:ICollection ):void {
+		public function processVO( process:IVOProcessor, collection:ICollection ):void {
 			process.processCollection( collection.items );
 		}
 		
@@ -114,7 +114,7 @@ package com.adams.swizdao.response
 		 * modifies the particular VO's Persistent Collection Object with the received server response.
 		 * </p>
  		 */
-		private function updateCollection( collection:ICollection, currentSignal:SignalVO, resultObj:Object ):ICollection {
+		public function updateCollection( collection:ICollection, currentSignal:SignalVO, resultObj:Object ):ICollection {
 			switch( currentSignal.action ) {
 				case Action.CREATE:
 					collection.addItem( resultObj );

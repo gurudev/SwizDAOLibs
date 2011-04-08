@@ -43,6 +43,7 @@ package com.adams.swizdao.model.collections
 		function updateItems( newList:IList ):void; 
 		function containsItem( item:Object ):Boolean;
 		function findExistingItem( item:Object ):Object;
+		function findExistingPropItem( item:Object,prop:String ):Object 
 		function modifyItems( newList:IList ):void;
 	}
 }

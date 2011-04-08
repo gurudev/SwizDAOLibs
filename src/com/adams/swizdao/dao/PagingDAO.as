@@ -71,6 +71,7 @@ package com.adams.swizdao.dao
 			remoteService.destination = destination;
 		}
 		
+		
 		[MediateSignal(type="AbstractSignal")]
 		public function invokeAction( obj:SignalVO ):AsyncToken {
 			invoke();
@@ -78,6 +79,14 @@ package com.adams.swizdao.dao
 				switch( obj.action ) {
 					case Action.GETQUERYRESULT:
 						delegate.token = remoteService.getQueryResult(obj.name) ;
+						return delegate.token;
+						break;
+					case Action.CREATENAVTASK:
+						delegate.token = remoteService.getQueryResult(obj.receivers) ;
+						return delegate.token;
+						break;
+					case Action.CREATEPROJECT:
+						delegate.token = remoteService.getQueryResult(obj.receivers) ;
 						return delegate.token;
 						break;
 					case Action.PAGINATIONLISTVIEW:
@@ -96,8 +105,8 @@ package com.adams.swizdao.dao
 						delegate.token = remoteService.queryPagination(obj.name,obj.startIndex, obj.endIndex);
 						return delegate.token;
 						break;
-					case Action.REFRESHTWEETS:
-						delegate.token = remoteService.refreshTweets(obj.id) ;//void
+					case Action.GETLOGINLISTRESULT:
+						delegate.token = remoteService.getLoginListResult(obj.id,obj.startIndex) ;//void
 						return delegate.token;
 						break;
 					case Action.UPDATETWEET:
