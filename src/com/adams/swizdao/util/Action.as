@@ -33,6 +33,7 @@ package com.adams.swizdao.util
 		public static const PUSH_MSG:String = 'PushMsg';
 		public static const RECEIVE_MSG:String = 'receiveMsg';
 		
+		public static const PAGINATIONQUERY:String = 'findPersonsListOracle';
 		public static const GETQUERYRESULT:String = 'getQueryResult';
 		public static const PAGINATIONLISTVIEW:String = 'paginationListView';
 		public static const QUERYLISTVIEW:String = 'queryListView';
@@ -41,6 +42,7 @@ package com.adams.swizdao.util
 		public static const GETLOGINLISTRESULT:String = 'getLoginListResult';
 		public static const CREATEPROJECT:String = 'createOracleNewProject';
 		public static const CREATENAVTASK:String = 'createNavigationTasks';
+		public static const GETPROJECTSLIST:String = 'findPersonsListCount';
 		
 		public static const UPDATETWEET:String = 'updateTweet';
 		public static const SENDMAIL:String = 'sendMail';

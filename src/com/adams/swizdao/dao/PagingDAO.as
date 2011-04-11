@@ -12,7 +12,7 @@ package com.adams.swizdao.dao
 	
 	import mx.rpc.AsyncToken;
 	import mx.rpc.remoting.mxml.RemoteObject;
-
+	
 	public class PagingDAO implements IAbstractDAO
 	{
 		
@@ -77,16 +77,22 @@ package com.adams.swizdao.dao
 			invoke();
 			if( obj.destination == this.destination ) {
 				switch( obj.action ) {
+					case Action.PAGINATIONQUERY:
+						delegate.token = remoteService.paginationListViewId(obj.description,obj.id,obj.startIndex,obj.endIndex) ;
+						return delegate.token;
+						break;
 					case Action.GETQUERYRESULT:
 						delegate.token = remoteService.getQueryResult(obj.name) ;
 						return delegate.token;
 						break;
 					case Action.CREATENAVTASK:
-						delegate.token = remoteService.getQueryResult(obj.receivers) ;
+						delegate.token = remoteService.createNavigationTasks(obj.receivers[0],obj.receivers[1],obj.receivers[2],obj.receivers[3],obj.receivers[4],obj.receivers[5],obj.receivers[6]) ;
 						return delegate.token;
 						break;
 					case Action.CREATEPROJECT:
-						delegate.token = remoteService.getQueryResult(obj.receivers) ;
+						delegate.token = remoteService.createOracleNewProject(obj.receivers[0],obj.receivers[1],obj.receivers[2],obj.receivers[3],obj.receivers[4],obj.receivers[5],obj.receivers[6],obj.receivers[7],obj.receivers[8],obj.receivers[9],
+							obj.receivers[10],obj.receivers[11],obj.receivers[12],obj.receivers[13],obj.receivers[14],obj.receivers[15],obj.receivers[16],obj.receivers[17],obj.receivers[18],obj.receivers[19],
+							obj.receivers[20],obj.receivers[21],obj.receivers[22]);
 						return delegate.token;
 						break;
 					case Action.PAGINATIONLISTVIEW:
