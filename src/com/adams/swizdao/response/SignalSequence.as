@@ -38,6 +38,9 @@ package com.adams.swizdao.response
 			serviceSignal.currentSignal = signal;
 			serviceSignal.currentCollection = signal.collection;
 			serviceSignal.currentProcessor = signal.processor;
+			var dest:String = signal.destination.substring(0,30);
+			var act:String = signal.action.substring(0,30);
+			trace(dest +'\t\t\t' +act +'\t\t\t'+new Date())
 			serviceSignal.dispatch( signal );
 			ArrayUtil.removeElementAt( 0, events );
 		}  
