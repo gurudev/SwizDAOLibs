@@ -121,8 +121,8 @@ package com.adams.swizdao.dao
 						return delegate.token;
 						break;
 					case Action.SENDMAIL:
-						remoteService = _controlService.unAuthRo;
-						remoteService.destination = ArrayUtil.UNSECUREDAO;
+						//remoteService = _controlService.unAuthRo;
+						//remoteService.destination = ArrayUtil.UNSECUREDAO;
 						delegate.token = remoteService.SmtpSSLMail(obj.emailId, obj.name, obj.emailBody);
 						secureDAO();
 						return delegate.token;
