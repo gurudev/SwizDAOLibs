@@ -127,6 +127,16 @@ package com.adams.swizdao.dao
 						secureDAO();
 						return delegate.token;
 						break;
+					case Action.FILECONVERT:
+						remoteService.destination = ArrayUtil.FILEDAO;
+						delegate.token = remoteService.doConvert(obj.name,obj.emailBody);
+						return delegate.token;
+						break;
+					case Action.FILEMOVE:
+						remoteService.destination = ArrayUtil.FILEDAO;
+						delegate.token = remoteService.copyDirectory(obj.name,obj.emailBody);
+						return delegate.token;
+						break;
 					case Action.CREATEPERSON:
 						remoteService = _controlService.unAuthRo;
 						remoteService.destination = ArrayUtil.UNSECUREPERSONDAO;

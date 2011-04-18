@@ -27,6 +27,7 @@ package com.adams.swizdao.util
 	{
 		
 		public static const PAGINGDAO 	:String='pagingDAO';
+		public static const FILEDAO	:String='fileIO';
 		public static const UNSECUREDAO	:String='unsecureDAO';
 		public static const UNSECUREPERSONDAO	:String='unsecurePersonDAO';
 		
