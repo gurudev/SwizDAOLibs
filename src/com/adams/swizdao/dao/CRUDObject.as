@@ -121,6 +121,18 @@ package com.adams.swizdao.dao
 			return delegate.token;
 		}
 		/**
+		 * Whenever an directupdate action is called by AbstractDAO.
+		 * invokeAction initates to perform Generic update Action
+		 * <p>
+		 * The VO update function for Generic DAO
+		 * </p>
+		 */		
+		public function directupdate( vo:IValueObject ):AsyncToken {
+			invoke();
+			delegate.token = remoteService.directupdate(vo);
+			return delegate.token;
+		}
+		/**
 		 * Whenever an read action is called by AbstractDAO.
 		 * invokeAction initates to perform Generic read Action
 		 * <p>

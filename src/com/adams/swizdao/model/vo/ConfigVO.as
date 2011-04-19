@@ -26,7 +26,7 @@ package com.adams.swizdao.model.vo
 		private var _FileServer:String
 		private var _pdfServerDir:String
 		private var _CF:int
-		private var _prjCount:int = 257
+		private var _prjCount:int
 		private var _evalMins:String
 		private var _Copyright:String
 		private var _SmtpHost:String
