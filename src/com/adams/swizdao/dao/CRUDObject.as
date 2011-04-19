@@ -215,6 +215,12 @@ package com.adams.swizdao.dao
 			return delegate.token;
 		}
 		
+		public function findTasksList(projId:int):AsyncToken {
+			invoke();
+			delegate.token = remoteService.findTasksList(projId); 
+			return delegate.token;
+		}
+		
 		public function getProjList(personId:int):AsyncToken {
 			invoke();
 			delegate.token = remoteService.findPersonsListCount(personId); 

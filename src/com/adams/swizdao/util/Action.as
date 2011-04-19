@@ -33,6 +33,7 @@ package com.adams.swizdao.util
 		public static const DELETE_ALL:String = 'deleteAll';
 		public static const PUSH_MSG:String = 'PushMsg';
 		public static const RECEIVE_MSG:String = 'receiveMsg';
+		public static const FINDTASKSLIST:String = 'findTasksList';
 		
 		public static const PAGINATIONQUERY:String = 'findPersonsListOracle';
 		public static const GETQUERYRESULT:String = 'getQueryResult';
