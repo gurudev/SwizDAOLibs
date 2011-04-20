@@ -42,6 +42,7 @@ package com.adams.swizdao.model.vo
 		private var _performed:Boolean;
 		private var _startIndex:int;
 		private var _endIndex:int;
+		private var _currentProcessedCollection:IList;
 		/**
 		 * Constructor, valueObject used to dispatch signals in a encapsulated object
 		 */
@@ -56,6 +57,7 @@ package com.adams.swizdao.model.vo
 				daoName = dao.daoName;
 				collection = dao.collection;
 				processor = dao.processor;
+				clazz =dao.voClazz;
 				action = actionStr;
 			}
 			
@@ -66,7 +68,7 @@ package com.adams.swizdao.model.vo
 			}
 		
 		}
-		
+		public var clazz:Class;
 		public function get emailBody():String
 		{
 			return _emailBody;
@@ -202,6 +204,16 @@ package com.adams.swizdao.model.vo
 		}
 		public function set description( value:Object ):void {
 			_description = value;
+		}
+		
+		public function get currentProcessedCollection():IList
+		{
+			return _currentProcessedCollection;
+		}
+		
+		public function set currentProcessedCollection(value:IList):void
+		{
+			_currentProcessedCollection = value;
 		}
 	}
 }

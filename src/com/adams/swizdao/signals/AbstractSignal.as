@@ -35,6 +35,7 @@ package com.adams.swizdao.signals
 		public function AbstractSignal()
 		{
 			super( SignalVO );
-		}
+		} 
+
 	}
 }

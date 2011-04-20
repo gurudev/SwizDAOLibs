@@ -14,5 +14,7 @@ package com.adams.swizdao.dao
 		 function set processor(value:IVOProcessor):void
 		 function get collection():ICollection 
 		 function set collection(v:ICollection):void 
+		 function get voClazz():Class 
+		 function set voClazz(v:Class):void 
 	}
 }

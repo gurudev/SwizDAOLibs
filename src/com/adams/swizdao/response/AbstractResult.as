@@ -1,18 +1,18 @@
 /*
- * Copyright 2010 @nsdevaraj
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License. You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
+* Copyright 2010 @nsdevaraj
+* 
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not
+* use this file except in compliance with the License. You may obtain a copy of
+* the License. You may obtain a copy of the License at
+* 
+* http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+* License for the specific language governing permissions and limitations under
+* the License.
+*/
 package com.adams.swizdao.response
 {
 	import com.adams.swizdao.model.collections.ICollection;
@@ -23,9 +23,11 @@ package com.adams.swizdao.response
 	import com.adams.swizdao.signals.AbstractSignal;
 	import com.adams.swizdao.signals.PushRefreshSignal;
 	import com.adams.swizdao.signals.ResultSignal;
-	import com.adams.swizdao.util.Action; 
+	import com.adams.swizdao.util.Action;
+	import com.adams.swizdao.util.GetVOUtil;
 	
 	import mx.collections.ArrayCollection;
+	import mx.collections.ArrayList;
 	import mx.collections.IList;
 	import mx.rpc.AsyncToken;
 	import mx.rpc.events.FaultEvent;
@@ -66,7 +68,7 @@ package com.adams.swizdao.response
 		/** <p>
 		 * delegate for global service response assigned with Global result and fault handler
 		 * </p>
- 		 */
+		 */
 		public function set token( value:AsyncToken ):void {
 			_token = value; 
 			service.executeServiceCall( _token, resultHandler, faultHandler, [ serviceSignal ] );
@@ -79,12 +81,12 @@ package com.adams.swizdao.response
 		 * Handler function, globally manage the server responses.
 		 * the SignalSequence is invoked onSignalDone(), to proceed with next queued signals.
 		 * </p>
- 		 */
+		 */
 		protected var resultObj:Object
 		protected function resultHandler( rpcevt:ResultEvent, prevSignal:AbstractSignal = null ):void { 
 			var currentVO:IValueObject;
 			resultObj = rpcevt.result;
-
+			
 			if( resultObj is ArrayCollection ) {
 				if( ArrayCollection( resultObj ).length != 0 ) {
 					currentVO = ArrayCollection( resultObj ).getItemAt( 0 ) as IValueObject;	
@@ -93,11 +95,16 @@ package com.adams.swizdao.response
 			else {
 				currentVO = resultObj as IValueObject;
 			}
+			var processedArr:Array =[]
 			if(Action.PAGINGACTIONS.indexOf( prevSignal.currentSignal.action ) ==-1) {
 				var outCollection:ICollection = updateCollection( prevSignal.currentCollection, prevSignal.currentSignal, resultObj );
 				if( prevSignal.currentProcessor ) {
 					processVO( prevSignal.currentProcessor, outCollection );
+					for each(var valueObject:IValueObject in resultObj){
+						processedArr.push(GetVOUtil.getVOObject(valueObject[prevSignal.currentSignal.destination], prevSignal.currentSignal.collection.items, prevSignal.currentSignal.destination, prevSignal.currentSignal.clazz ))
+					}
 				} 
+				prevSignal.currentSignal.currentProcessedCollection = new ArrayCollection( processedArr);
 			}  
 		} 
 		
@@ -113,16 +120,17 @@ package com.adams.swizdao.response
 		/** <p>
 		 * modifies the particular VO's Persistent Collection Object with the received server response.
 		 * </p>
- 		 */
+		 */
 		public function updateCollection( collection:ICollection, currentSignal:SignalVO, resultObj:Object ):ICollection {
 			switch( currentSignal.action ) {
 				case Action.CREATE:
 					collection.addItem( resultObj );
-				break;
+					break;
 				case Action.UPDATE:
+				case Action.DIRECTUPDATE:
 					collection.updateItem( currentSignal.valueObject, resultObj );
-				break;
-				case Action.READ: 
+					break;
+				case Action.READ:
 				case Action.FINDBY_NAME: 
 				case Action.FIND_ID: 
 				case Action.FINDBY_ID:  
@@ -132,30 +140,31 @@ package com.adams.swizdao.response
 				case Action.DELETE:
 					ArrayCollection( collection.items ).refresh();
 					collection.removeItem( currentSignal.valueObject );
-				break;
+					break;
 				case Action.GET_COUNT:
 					//collection.length = resultObj as int;
-				break;
+					break;
 				case Action.GET_LIST:
 					collection.updateItems( resultObj as ArrayCollection );
-				break;
+					break;
 				case Action.BULK_UPDATE:
+				case Action.FINDTASKSLIST:
 					collection.modifyItems( resultObj as ArrayCollection );
-				break;
+					break;
 				case Action.DELETE_ALL:
 					collection.removeAll();
-				break;
+					break;
 				case Action.SQL_FINDALL:
 					break;
 				default:
-				break;	
+					break;	
 			}
 			return collection;
 		}  
 		/** <p>
 		 * Global fault handler for server response.
 		 * </p>
- 		 */
+		 */
 		private function faultHandler( event:FaultEvent ):void {
 			trace( serviceSignal.currentSignal.action + ' ' + serviceSignal.currentSignal.destination + ' failed ' + event );
 			signalSeq.onSignalDone();

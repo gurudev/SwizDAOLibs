@@ -26,6 +26,19 @@ package com.adams.swizdao.dao
 		{
 		}
 		private var _daoName:String;
+		
+		private var _voClazz:Class;
+
+		public function get voClazz():Class
+		{
+			return _voClazz;
+		}
+
+		public function set voClazz(value:Class):void
+		{
+			_voClazz = value;
+		}
+
 		public function get daoName():String
 		{
 			return _daoName;

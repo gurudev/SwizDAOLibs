@@ -29,6 +29,16 @@ package com.adams.swizdao.dao
 
 	public class CRUDObject  
 	{
+		private var _voClazz:Class;
+		public function get voClazz():Class
+		{
+			return _voClazz;
+		}
+
+		public function set voClazz(value:Class):void
+		{
+			_voClazz = value;
+		}
 
 		public function get processor():IVOProcessor
 		{
