@@ -30,6 +30,7 @@ package com.adams.swizdao.model.collections
 		function set findAll( v:Boolean ):void
 		function get propertyNames():Array;
 		function get items():IList; 
+		function get filteredItems():IList; 
 		function findItem( itemId:int ):Boolean;
 		function set items( v:IList ):void;
 		function get length():int; 

@@ -94,6 +94,12 @@ package com.adams.swizdao.model.collections
 			return _propertyNames;
 		}
 		
+		protected var _filteredItems:IList;
+		public function get filteredItems():IList {
+			_filteredItems = new ArrayCollection(ArrayCollection(items).source);
+			return _filteredItems;
+		}
+		
 		/**
 		 * Getter and Setter function of the main List
 		 * 
