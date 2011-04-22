@@ -100,8 +100,12 @@ package com.adams.swizdao.response
 				var outCollection:ICollection = updateCollection( prevSignal.currentCollection, prevSignal.currentSignal, resultObj );
 				if( prevSignal.currentProcessor ) {
 					processVO( prevSignal.currentProcessor, outCollection );
-					for each(var valueObject:IValueObject in resultObj){
-						processedArr.push(GetVOUtil.getVOObject(valueObject[prevSignal.currentSignal.destination], prevSignal.currentSignal.collection.items, prevSignal.currentSignal.destination, prevSignal.currentSignal.clazz ))
+					var pkArr:Array =[]
+					for each(var valueObject:Object in resultObj){
+						pkArr.push(valueObject[prevSignal.currentSignal.destination])
+					}
+					for each(var pKey:int in pkArr){
+						processedArr.push(GetVOUtil.getVOObject(pKey, prevSignal.currentSignal.collection.items, prevSignal.currentSignal.destination, prevSignal.currentSignal.clazz ))
 					}
 				} 
 				prevSignal.currentSignal.currentProcessedCollection = new ArrayCollection( processedArr);
