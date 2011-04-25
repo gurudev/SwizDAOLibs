@@ -96,7 +96,9 @@ package com.adams.swizdao.model.collections
 		
 		protected var _filteredItems:IList;
 		public function get filteredItems():IList {
-			_filteredItems = new ArrayCollection(ArrayCollection(items).source);
+			if(items){
+				_filteredItems = new ArrayCollection(ArrayCollection(items).source);
+			}
 			return _filteredItems;
 		}
 		

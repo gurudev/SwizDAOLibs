@@ -116,6 +116,10 @@ package com.adams.swizdao.dao
 						delegate.token = remoteService.queryListView(obj.name) ;
 						return delegate.token;
 						break;
+					case Action.BULKUPDATEPROJECTPROPERTIES:
+						delegate.token = remoteService.createProjectProperties(obj.receivers[0],obj.receivers[1],obj.receivers[2]) ;
+						return delegate.token;
+						break;
 					case Action.PAGINATIONLISTVIEWID:
 						delegate.token = remoteService.paginationListViewId(obj.name, obj.id, obj.startIndex,obj.endIndex) ;
 						return delegate.token;
