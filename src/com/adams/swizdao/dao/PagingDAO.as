@@ -108,6 +108,11 @@ package com.adams.swizdao.dao
 							obj.receivers[20],obj.receivers[21],obj.receivers[22]);
 						return delegate.token;
 						break;
+					case Action.CLOSEPROJECT:
+						delegate.token = remoteService.closeProjects(obj.receivers[0],obj.receivers[1],obj.receivers[2],obj.receivers[3],
+							obj.receivers[4],obj.receivers[5],obj.receivers[6],obj.receivers[7]);
+						return delegate.token;
+						break;
 					case Action.PAGINATIONLISTVIEW:
 						delegate.token = remoteService.paginationListView(obj.name,obj.startIndex,obj.endIndex) ;
 						return delegate.token;
