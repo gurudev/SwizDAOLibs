@@ -193,10 +193,14 @@ package com.adams.swizdao.views.mediators
 				serviceResultHandler( obj, signal );
 			}
 		}
-		
+
 		[MediateSignal(type="PushRefreshSignal")]
 		public function pushHandler( signal:SignalVO = null ): void {
 			pushResultHandler( signal );
+		}
+		
+		public function alertReceiveHandler( alertResponder:Function ):void {
+			// overridden
 		}
 		
 		protected function pushResultHandler( signal:SignalVO ):void {
