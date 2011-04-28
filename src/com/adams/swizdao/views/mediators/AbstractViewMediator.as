@@ -199,7 +199,7 @@ package com.adams.swizdao.views.mediators
 			pushResultHandler( signal );
 		}
 		
-		public function alertReceiveHandler( alertResponder:Function ):void {
+		public function alertReceiveHandler( alertResponder:Object ):void {
 			// overridden
 		}
 		
