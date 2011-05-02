@@ -49,6 +49,7 @@ package com.adams.swizdao.util
 		public static const FILECONVERT:String = 'doConvert';
 		public static const FILEMOVE:String = 'copyDirectory';
 		public static const CLOSEPROJECT:String = 'closeProjects';
+		public static const STAND_RESUMEPROJECT:String = 'projectStatusChangeTask';
 		
 		public static const UPDATETWEET:String = 'updateTweet';
 		public static const SENDMAIL:String = 'sendMail';
