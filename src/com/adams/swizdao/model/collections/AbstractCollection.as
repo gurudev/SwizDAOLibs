@@ -190,7 +190,7 @@ package com.adams.swizdao.model.collections
 		 * Removes all the items in the list
 		 */
 		public function removeAll():void {
-			items.removeAll();
+			if(items) items.removeAll();
 		}
 		
 		
