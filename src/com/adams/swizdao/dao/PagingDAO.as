@@ -164,6 +164,11 @@ package com.adams.swizdao.dao
 						delegate.token = remoteService.copyDirectory(obj.name,obj.emailBody);
 						return delegate.token;
 						break;
+					case Action.FILEDOWNLOAD:
+						remoteService.destination = ArrayUtil.FILEDAO;
+						delegate.token = remoteService.doDownload(obj.emailBody);
+						return delegate.token;
+						break;
 					case Action.CREATEPERSON:
 						remoteService = _controlService.unAuthRo;
 						remoteService.destination = ArrayUtil.UNSECUREPERSONDAO;

@@ -47,6 +47,7 @@ package com.adams.swizdao.util
 		public static const CREATENAVTASK:String = 'createNavigationTasks';
 		public static const GETPROJECTSLIST:String = 'findPersonsListCount';
 		public static const FILECONVERT:String = 'doConvert';
+		public static const FILEDOWNLOAD:String = 'downLoadFile';
 		public static const FILEMOVE:String = 'copyDirectory';
 		public static const CLOSEPROJECT:String = 'closeProjects';
 		public static const STAND_RESUMEPROJECT:String = 'projectStatusChangeTask';
@@ -54,6 +55,6 @@ package com.adams.swizdao.util
 		public static const UPDATETWEET:String = 'updateTweet';
 		public static const SENDMAIL:String = 'sendMail';
 		public static const CREATEPERSON:String = 'createPerson';
-		public static const PAGINGACTIONS:Array = [BULKUPDATEPROJECTPROPERTIES,GETQUERYRESULT,GET_COUNT,GETPROJECTSLIST,PAGINATIONLISTVIEW,QUERYLISTVIEW,PAGINATIONLISTVIEWID,QUERYPAGINATION,GETLOGINLISTRESULT,UPDATETWEET,SENDMAIL,CREATEPERSON];
+		public static const PAGINGACTIONS:Array = [FILEDOWNLOAD,BULKUPDATEPROJECTPROPERTIES,GETQUERYRESULT,GET_COUNT,GETPROJECTSLIST,PAGINATIONLISTVIEW,QUERYLISTVIEW,PAGINATIONLISTVIEWID,QUERYPAGINATION,GETLOGINLISTRESULT,UPDATETWEET,SENDMAIL,CREATEPERSON];
 	}
 }
