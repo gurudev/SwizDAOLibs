@@ -119,9 +119,6 @@ package com.adams.swizdao.views.mediators
 					this.init();
 					this.setRenderers();
 				}
-				
-				// don't get in GC's way if the view is removed
-				this._view.addEventListener( Event.REMOVED_FROM_STAGE, gcCleanup );
 			} 
 		}
 		
@@ -146,6 +143,9 @@ package com.adams.swizdao.views.mediators
 		protected function init():void {
 			this.setViewListeners();
 			this.setViewDataBindings();
+			
+			// don't get in GC's way if the view is removed
+			this.addEventListener( Event.REMOVED_FROM_STAGE, gcCleanup );
 		}
 		
 		protected function setRenderers():void {
@@ -221,7 +221,7 @@ package com.adams.swizdao.views.mediators
 		 * </p>
 		 */
 		protected function cleanup( event:Event ):void {
-			this._view.removeEventListener( Event.REMOVED_FROM_STAGE, cleanup );
+			this.removeEventListener( Event.REMOVED_FROM_STAGE, gcCleanup );
 			System.gc();
 			System.gc();
 			try
@@ -245,8 +245,8 @@ package com.adams.swizdao.views.mediators
 		 * created in the concrete ViewMediator. 
 		 * </p>
 		 */
-		protected function gcCleanup( event:Event ):void {
-			// overridden
+		private function gcCleanup( event:Event ):void {
+			cleanup( event );
 		}
 	}
 }
