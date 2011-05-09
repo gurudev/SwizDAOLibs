@@ -236,6 +236,14 @@ package com.adams.swizdao.dao
 			delegate.token = remoteService.findPersonsListCount(personId); 
 			return delegate.token;
 		}
+		
+		
+		public function getRefreshProjList(lastAccessedTime:Date, personId:int):AsyncToken {
+			invoke();
+			delegate.token = remoteService.findByDate(lastAccessedTime,personId); 
+			return delegate.token;
+		}
+		
 		/**
 		 * Whenever an bulk update action is called by AbstractDAO.
 		 * invokeAction initates to perform Generic bulk update Action

@@ -43,6 +43,7 @@ package com.adams.swizdao.model.vo
 		private var _startIndex:int;
 		private var _endIndex:int;
 		private var _currentProcessedCollection:IList;
+		private var _time:Date
 		/**
 		 * Constructor, valueObject used to dispatch signals in a encapsulated object
 		 */
@@ -69,6 +70,17 @@ package com.adams.swizdao.model.vo
 		
 		}
 		public var clazz:Class;
+
+		public function get time():Date
+		{
+			return _time;
+		}
+
+		public function set time(value:Date):void
+		{
+			_time = value;
+		}
+
 		public function get emailBody():String
 		{
 			return _emailBody;

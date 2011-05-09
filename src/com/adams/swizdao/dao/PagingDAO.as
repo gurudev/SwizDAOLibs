@@ -28,17 +28,17 @@ package com.adams.swizdao.dao
 		private var _daoName:String;
 		
 		private var _voClazz:Class;
-
+		
 		public function get voClazz():Class
 		{
 			return _voClazz;
 		}
-
+		
 		public function set voClazz(value:Class):void
 		{
 			_voClazz = value;
 		}
-
+		
 		public function get daoName():String
 		{
 			return _daoName;
@@ -92,6 +92,10 @@ package com.adams.swizdao.dao
 				switch( obj.action ) {
 					case Action.PAGINATIONQUERY:
 						delegate.token = remoteService.paginationListViewId(obj.description,obj.id,obj.startIndex,obj.endIndex) ;
+						return delegate.token;
+						break;
+					case Action.REFRESHQUERY:
+						delegate.token = remoteService.findByDate(obj.time,obj.id) ;
 						return delegate.token;
 						break;
 					case Action.GETQUERYRESULT:

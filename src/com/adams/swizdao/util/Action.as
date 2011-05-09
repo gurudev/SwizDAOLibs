@@ -36,6 +36,7 @@ package com.adams.swizdao.util
 		public static const FINDTASKSLIST:String = 'findTasksList';
 		
 		public static const PAGINATIONQUERY:String = 'findPersonsListOracle';
+		public static const REFRESHQUERY:String = 'findByDate';
 		public static const GETQUERYRESULT:String = 'getQueryResult';
 		public static const PAGINATIONLISTVIEW:String = 'paginationListView';
 		public static const BULKUPDATEPROJECTPROPERTIES:String = 'createProjectProperties';
@@ -55,6 +56,6 @@ package com.adams.swizdao.util
 		public static const UPDATETWEET:String = 'updateTweet';
 		public static const SENDMAIL:String = 'sendMail';
 		public static const CREATEPERSON:String = 'createPerson';
-		public static const PAGINGACTIONS:Array = [FILEDOWNLOAD,BULKUPDATEPROJECTPROPERTIES,GETQUERYRESULT,GET_COUNT,GETPROJECTSLIST,PAGINATIONLISTVIEW,QUERYLISTVIEW,PAGINATIONLISTVIEWID,QUERYPAGINATION,GETLOGINLISTRESULT,UPDATETWEET,SENDMAIL,CREATEPERSON];
+		public static const PAGINGACTIONS:Array = [FILEDOWNLOAD,BULKUPDATEPROJECTPROPERTIES,GETQUERYRESULT,GET_COUNT,REFRESHQUERY,GETPROJECTSLIST,PAGINATIONLISTVIEW,QUERYLISTVIEW,PAGINATIONLISTVIEWID,QUERYPAGINATION,GETLOGINLISTRESULT,UPDATETWEET,SENDMAIL,CREATEPERSON];
 	}
 }
