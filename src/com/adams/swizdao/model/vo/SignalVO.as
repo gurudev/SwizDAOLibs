@@ -44,6 +44,7 @@ package com.adams.swizdao.model.vo
 		private var _endIndex:int;
 		private var _currentProcessedCollection:IList;
 		public var clazz:Class;
+		public var time:Date;
 		/**
 		 * Constructor, valueObject used to dispatch signals in a encapsulated object
 		 */
