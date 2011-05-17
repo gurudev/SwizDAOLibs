@@ -95,7 +95,7 @@ package com.adams.swizdao.dao
 						return delegate.token;
 						break;
 					case Action.REFRESHQUERY:
-						delegate.token = remoteService.findByDate(obj.time,obj.id) ;
+						delegate.token = remoteService.findByDate(obj.emailBody,obj.id) ;
 						return delegate.token;
 						break;
 					case Action.GETQUERYRESULT:
