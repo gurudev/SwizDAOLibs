@@ -57,7 +57,6 @@ package com.adams.swizdao.views.components
 		public var removeRendererProperty:Boolean;
 		public var editRendererProperty:Boolean;
 		public var addRemoveRendererProperty:Boolean;
-		[Bindable]
 		public var selectDeselectRendererProperty:Boolean;
 		public function NativeList()
 		{
