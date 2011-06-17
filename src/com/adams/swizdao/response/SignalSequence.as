@@ -15,13 +15,18 @@
  */
 package com.adams.swizdao.response
 {
+	import com.adams.swizdao.model.vo.CurrentInstance;
 	import com.adams.swizdao.model.vo.SignalVO;
 	import com.adams.swizdao.signals.AbstractSignal;
-	import com.adams.swizdao.util.ArrayUtil;			
+	import com.adams.swizdao.util.ArrayUtil;
+
 	public class SignalSequence 
 	{       
 		[Inject]
 		public var serviceSignal:AbstractSignal;
+		
+		[Inject]
+		public var currentInstance:CurrentInstance;
 		private var serviceInProcess:Boolean;
 		private var signal:SignalVO;
 		private var events:Array = [];  
@@ -41,6 +46,7 @@ package com.adams.swizdao.response
 			var dest:String = signal.destination.substring(0,30);
 			var act:String = signal.action.substring(0,30);
 			trace(dest +'\t\t\t' +act +'\t\t\t'+new Date())
+			currentInstance.waitingForServerResponse = true;
 			serviceSignal.dispatch( signal );
 			ArrayUtil.removeElementAt( 0, events );
 		}  

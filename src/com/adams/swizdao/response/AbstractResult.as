@@ -84,6 +84,7 @@ package com.adams.swizdao.response
 		 */
 		protected var resultObj:Object
 		protected function resultHandler( rpcevt:ResultEvent, prevSignal:AbstractSignal = null ):void { 
+			currentInstance.waitingForServerResponse = false;
 			var currentVO:IValueObject;
 			resultObj = rpcevt.result;
 			

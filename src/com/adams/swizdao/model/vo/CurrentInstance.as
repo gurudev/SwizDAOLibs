@@ -21,15 +21,18 @@ package com.adams.swizdao.model.vo
 
 	[Bindable]
 	public class CurrentInstance extends AbstractVO
-	{
-		/**
-		 * Constructor, to store the values to be shared across views.
-		 * 
-		 */ 
-		public function CurrentInstance()
-		{ 
-		}  
+	{   
 		
+		public function get waitingForServerResponse():Boolean
+		{
+			return _waitingForServerResponse;
+		}
+
+		public function set waitingForServerResponse(value:Boolean):void
+		{
+			_waitingForServerResponse = value;
+		}
+
 		public function get serverLastAccessedAt():Date
 		{
 			return _serverLastAccessedAt;
@@ -84,7 +87,6 @@ package com.adams.swizdao.model.vo
 		private var _mainViewStackIndex:int;
 		private var _serverLastAccessedAt:Date = new Date();
 		private var _idle:Boolean; 
-		
-		
+		private var _waitingForServerResponse:Boolean;
 	}
 }
